@@ -26,19 +26,19 @@ import pelvic from "../../assets/pelvic.png";
 const deviceWidth = Dimensions.get("window").width;
 
 const Home = () => {
-	const [videos, setVideos] = useState([]);
+	// const [videos, setVideos] = useState([]);
 
-	useEffect(() => {
-		axios
-			.get("http://10.0.0.225:3000/videos")
-			.then((response) => {
-				// console.log(response);
-				setVideos(response.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	axios
+	// 		.get("http://10.0.0.225:3000/videos")
+	// 		.then((response) => {
+	// 			// console.log(response);
+	// 			setVideos(response.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error);
+	// 		});
+	// }, []);
 
 	return (
 		// <ScrollView>

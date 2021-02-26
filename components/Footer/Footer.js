@@ -5,30 +5,45 @@ import FIcon from "react-native-vector-icons/FontAwesome";
 import F5Icon from "react-native-vector-icons/FontAwesome5";
 import SLIcon from "react-native-vector-icons/SimpleLineIcons";
 import IIcon from "react-native-vector-icons/Ionicons";
+import { Link } from "react-router-native";
 
 const Footer = () => {
 	return (
 		<View style={styles.footer}>
-			<View style={styles.footerIcon}>
-				<Icon name="home" size={30} />
-				<Text style={styles.footerIconText}>Home</Text>
-			</View>
-			<View style={styles.footerIcon}>
-				<FIcon name="list-alt" size={30} />
-				<Text style={styles.footerIconText}>Classes</Text>
-			</View>
-			<View style={styles.footerIcon}>
-				<SLIcon name="screen-desktop" size={30} />
-				<Text style={styles.footerIconText}>Series</Text>
-			</View>
-			<View style={styles.footerIcon}>
-				<F5Icon name="dumbbell" size={30} />
-				<Text style={styles.footerIconText}>Challenges</Text>
-			</View>
-			<View style={styles.footerIcon}>
-				<IIcon name="settings" size={30} />
-				<Text style={styles.footerIconText}>Settings</Text>
-			</View>
+			<Link to="/" style={styles.footerIcon} underlayColor="none">
+				<View style={styles.footerItem}>
+					<Icon name="home" size={30} />
+					<Text style={styles.footerIconText}>Home</Text>
+				</View>
+			</Link>
+			<Link to="/classes" style={styles.footerIcon} underlayColor="none">
+				<View style={styles.footerItem}>
+					<FIcon name="list-alt" size={30} />
+					<Text style={styles.footerIconText}>Classes</Text>
+				</View>
+			</Link>
+			<Link to="/search" style={styles.footerIcon} underlayColor="none">
+				<View style={styles.footerItem}>
+					<FIcon name="search" size={30} />
+					<Text style={styles.footerIconText}>Search</Text>
+				</View>
+			</Link>
+			<Link
+				to="/challenges"
+				style={styles.footerIcon}
+				underlayColor="none"
+			>
+				<View style={styles.footerItem}>
+					<F5Icon name="dumbbell" size={30} />
+					<Text style={styles.footerIconText}>Challenges</Text>
+				</View>
+			</Link>
+			<Link to="/settings" style={styles.footerIcon} underlayColor="none">
+				<View style={styles.footerItem}>
+					<IIcon name="settings" size={30} />
+					<Text style={styles.footerIconText}>Settings</Text>
+				</View>
+			</Link>
 		</View>
 	);
 };
@@ -48,5 +63,8 @@ const styles = StyleSheet.create({
 	},
 	footerIconText: {
 		fontSize: 12,
+	},
+	footerItem: {
+		alignItems: "center",
 	},
 });
