@@ -13,6 +13,7 @@ import { WebView } from "react-native-webview";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Footer from "../Footer/Footer";
 import SectionHead from "../SectionHead";
+import { Link } from "react-router-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -59,30 +60,37 @@ const Search = () => {
 						<ScrollView>
 							{videos.map((video) => {
 								return (
-									<View
-										style={styles.video}
-										key={video.uri.substring(8)}
+									<Link
+										to={"video/" + video.uri.substring(8)}
 									>
-										{/* <WebView
-									 			source={{
-									 				html: video.embed.html,
-									 				headers: {
-									 					Referer:
-									 						"exp://10.0.0.225:19000",
-									 				},
-									 			}}
-									 		/> */}
-										<Image
+										<View
+											key={video.uri.substring(8)}
+											style={styles.video}
+										>
+											{/* <WebView
 											source={{
-												uri: video.pictures.sizes[4].link.slice(
-													0,
-													-6
-												),
+												html: video.embed.html,
+												headers: {
+													Referer:
+														"exp://10.0.0.225:19000",
+												},
 											}}
-											style={styles.thumbnail}
-										/>
-										<Text>{video.name}</Text>
-									</View>
+										/> */}
+
+											{/* <View> */}
+											<Image
+												source={{
+													uri: video.pictures.sizes[4].link.slice(
+														0,
+														-6
+													),
+												}}
+												style={styles.thumbnail}
+											/>
+											<Text>{video.name}</Text>
+											{/* </View> */}
+										</View>
+									</Link>
 								);
 							})}
 						</ScrollView>
