@@ -9,8 +9,8 @@ import {
 	Button,
 	TouchableOpacity,
 } from "react-native";
-import axios from "axios";
-import { WebView } from "react-native-webview";
+// import axios from "axios";
+// import { WebView } from "react-native-webview";
 import Footer from "../Footer/Footer";
 import logo from "../../assets/logo.png";
 import group from "../../assets/group.jpg";

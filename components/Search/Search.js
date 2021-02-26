@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Dimensions,
+	Image,
 	ScrollView,
 	StyleSheet,
 	Text,
 	TextInput,
 	View,
 } from "react-native";
+import axios from "axios";
+import { WebView } from "react-native-webview";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Footer from "../Footer/Footer";
 import SectionHead from "../SectionHead";
@@ -14,6 +17,20 @@ import SectionHead from "../SectionHead";
 const deviceWidth = Dimensions.get("window").width;
 
 const Search = () => {
+	const [searchQuery, setSearchQuery] = useState();
+	const [videos, setVideos] = useState([]);
+
+	let fetchVideos = () => {
+		axios
+			.get(`http://10.0.0.225:3000/search-videos/${searchQuery}`)
+			.then((response) => {
+				setVideos(response.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ScrollView
@@ -26,6 +43,8 @@ const Search = () => {
 						<TextInput
 							style={styles.headerInput}
 							placeholder="Search Videos"
+							onChangeText={(query) => setSearchQuery(query)}
+							onSubmitEditing={fetchVideos}
 						/>
 						<Icon
 							name="search"
@@ -37,15 +56,36 @@ const Search = () => {
 				<View style={styles.results}>
 					<SectionHead text="Search Results" />
 					<View style={styles.videos}>
-						<View style={styles.video}>
-							<Text style={styles.videoText}>Video 1</Text>
-						</View>
-						<View style={styles.video}>
-							<Text style={styles.videoText}>Video 2</Text>
-						</View>
-						<View style={styles.video}>
-							<Text style={styles.videoText}>Video 3</Text>
-						</View>
+						<ScrollView>
+							{videos.map((video) => {
+								return (
+									<View
+										style={styles.video}
+										key={video.uri.substring(8)}
+									>
+										{/* <WebView
+									 			source={{
+									 				html: video.embed.html,
+									 				headers: {
+									 					Referer:
+									 						"exp://10.0.0.225:19000",
+									 				},
+									 			}}
+									 		/> */}
+										<Image
+											source={{
+												uri: video.pictures.sizes[4].link.slice(
+													0,
+													-6
+												),
+											}}
+											style={styles.thumbnail}
+										/>
+										<Text>{video.name}</Text>
+									</View>
+								);
+							})}
+						</ScrollView>
 					</View>
 				</View>
 			</ScrollView>
@@ -97,15 +137,19 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 	},
 	video: {
-		height: 70,
+		maxHeight: 300,
 		width: deviceWidth - 100,
 		alignItems: "center",
 		justifyContent: "center",
 		borderRadius: 6,
-		marginBottom: 15,
-		backgroundColor: "#EFA7A1",
+		marginBottom: 60,
 	},
 	videoText: {
 		color: "#fff",
+	},
+	thumbnail: {
+		height: "100%",
+		width: "100%",
+		marginBottom: 10,
 	},
 });
