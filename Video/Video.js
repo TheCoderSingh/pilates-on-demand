@@ -5,7 +5,7 @@ import { WebView } from "react-native-webview";
 import Footer from "../components/Footer/Footer";
 
 const Video = (props) => {
-	const [video, setVideo] = useState([]);
+	const [video, setVideo] = useState();
 
 	useEffect(() => {
 		let videoid = props.match.params.id;
@@ -13,8 +13,6 @@ const Video = (props) => {
 		axios
 			.get(`http://10.0.0.225:3000/video/${videoid}`)
 			.then((response) => {
-				// console.log("Yo?>");
-				console.log(response.data);
 				setVideo(response.data);
 			})
 			.catch((error) => {
@@ -24,13 +22,16 @@ const Video = (props) => {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<ScrollView>
+			<ScrollView contentContainerStyle={{ alignItems: "center" }}>
 				<Text>{props.match.params.id}</Text>
-				<View style={{ flex: 1 }}>
+				<View style={styles.video}>
 					{video ? (
 						<WebView
 							source={{
 								html: video.embed.html,
+								headers: {
+									Referer: "exp://10.0.0.225:19000",
+								},
 							}}
 						/>
 					) : null}
@@ -43,4 +44,10 @@ const Video = (props) => {
 
 export default Video;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	video: {
+		marginTop: 60,
+		height: 300,
+		width: 300,
+	},
+});
