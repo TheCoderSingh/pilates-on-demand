@@ -28,7 +28,7 @@ const Footer = () => {
 					<Text style={styles.footerIconText}>Search</Text>
 				</View>
 			</Link>
-			{/* <Link
+			<Link
 				to="/challenges"
 				style={styles.footerIcon}
 				underlayColor="none"
@@ -43,19 +43,7 @@ const Footer = () => {
 					<IIcon name="settings" size={30} />
 					<Text style={styles.footerIconText}>Settings</Text>
 				</View>
-			</Link> */}
-			<View style={styles.footerIcon} underlayColor="none">
-				<View style={styles.footerItem}>
-					<F5Icon name="dumbbell" size={30} />
-					<Text style={styles.footerIconText}>Challenges</Text>
-				</View>
-			</View>
-			<View style={styles.footerIcon} underlayColor="none">
-				<View style={styles.footerItem}>
-					<IIcon name="settings" size={30} />
-					<Text style={styles.footerIconText}>Settings</Text>
-				</View>
-			</View>
+			</Link>
 		</View>
 	);
 };

@@ -62,6 +62,7 @@ const Search = () => {
 								return (
 									<Link
 										to={"video/" + video.uri.substring(8)}
+										key={video.uri.substring(8)}
 									>
 										<View
 											key={video.uri.substring(8)}

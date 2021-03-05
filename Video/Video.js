@@ -5,7 +5,7 @@ import { WebView } from "react-native-webview";
 import Footer from "../components/Footer/Footer";
 
 const Video = (props) => {
-	const [video, setVideo] = useState();
+	const [video, setVideo] = useState([]);
 
 	useEffect(() => {
 		let videoid = props.match.params.id;
@@ -13,10 +13,12 @@ const Video = (props) => {
 		axios
 			.get(`http://10.0.0.225:3000/video/${videoid}`)
 			.then((response) => {
+				// console.log("Yo?>");
+				console.log(response.data);
 				setVideo(response.data);
 			})
 			.catch((error) => {
-				console.error(error);
+				console.log(error);
 			});
 	}, []);
 
