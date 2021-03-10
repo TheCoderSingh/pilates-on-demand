@@ -6,6 +6,8 @@ import Classes from "./components/Classes/Classes";
 import Home from "./components/Home/Home";
 import Search from "./components/Search/Search";
 import Settings from "./components/Settings/Settings";
+import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 import Video from "./Video/Video";
 
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
 				<Route path="/video/:id" component={Video} />
 				<Route path="/challenges" component={Challenges} />
 				<Route path="/settings" component={Settings} />
+				<Route path="/sign-in" component={SignIn} />
+				<Route path="/register" component={Register} />
 			</View>
 		</NativeRouter>
 	);

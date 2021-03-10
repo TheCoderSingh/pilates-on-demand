@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Footer from "../Footer/Footer";
 import logo from "../../assets/logo.png";
+import { Link } from "react-router-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -27,12 +28,12 @@ const Settings = () => {
 					}}
 				></View>
 				<View style={styles.buttons}>
-					<TouchableOpacity style={styles.button}>
+					<Link to="/sign-in" style={styles.button}>
 						<Text style={styles.buttonText}>Sign In</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
+					</Link>
+					<Link to="/register" style={styles.button}>
 						<Text style={styles.buttonText}>Register</Text>
-					</TouchableOpacity>
+					</Link>
 				</View>
 				<View style={styles.content}>
 					<View style={styles.setting}>
