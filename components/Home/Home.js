@@ -6,11 +6,8 @@ import {
 	Dimensions,
 	ScrollView,
 	Image,
-	Button,
 	TouchableOpacity,
 } from "react-native";
-// import axios from "axios";
-// import { WebView } from "react-native-webview";
 import Footer from "../Footer/Footer";
 import logo from "../../assets/logo.png";
 import group from "../../assets/group.jpg";
@@ -22,24 +19,11 @@ import modified from "../../assets/modified.png";
 import prenatal from "../../assets/prenatal.png";
 import postnatal from "../../assets/postnatal.png";
 import pelvic from "../../assets/pelvic.png";
+import { Link } from "react-router-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
 const Home = () => {
-	// const [videos, setVideos] = useState([]);
-
-	// useEffect(() => {
-	// 	axios
-	// 		.get("http://10.0.0.225:3000/videos")
-	// 		.then((response) => {
-	// 			// console.log(response);
-	// 			setVideos(response.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// }, []);
-
 	return (
 		// <ScrollView>
 		// 	{videos.map((video) => {
@@ -76,14 +60,14 @@ const Home = () => {
 					<Text>Online classes for Every BODY</Text>
 				</View>
 				<View style={styles.buttons}>
-					<TouchableOpacity style={styles.button}>
+					<Link to="/register" style={styles.button}>
 						<Text style={styles.buttonText}>
 							Try 14 days for free
 						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
+					</Link>
+					<Link to="/sign-in" style={styles.button}>
 						<Text style={styles.buttonText}>Sign In</Text>
-					</TouchableOpacity>
+					</Link>
 				</View>
 				<View style={styles.text}>
 					<Text>CLASSES THAT FIT YOU</Text>
@@ -128,15 +112,6 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-	// container: {
-	// 	width: deviceWidth,
-	// 	height: 300,
-	// 	alignItems: "center",
-	// },
-	// video: {
-	// 	marginTop: 50,
-	// 	width: 320,
-	// },
 	contentCont: {
 		marginTop: 50,
 	},
