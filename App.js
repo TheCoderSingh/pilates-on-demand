@@ -9,6 +9,7 @@ import Settings from "./components/Settings/Settings";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 import Video from "./Video/Video";
+import CategoryResult from "./components/CategoryResult";
 
 export default function App() {
 	return (
@@ -22,6 +23,7 @@ export default function App() {
 				<Route path="/settings" component={Settings} />
 				<Route path="/sign-in" component={SignIn} />
 				<Route path="/register" component={Register} />
+				<Route path="/category/:cat" component={CategoryResult} />
 			</View>
 		</NativeRouter>
 	);

@@ -31,7 +31,6 @@ const Video = (props) => {
 						<Text style={styles.desc}>{video.description}</Text>
 						<WebView
 							source={{
-								// html: video.embed.html,
 								html: video.embed.html
 									.replace("1920", "1024")
 									.replace("1080", "786"),

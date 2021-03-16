@@ -74,36 +74,36 @@ const Home = () => {
 					<Text>ANYWHERE. ANYTIME. ANY SKILL LEVEL.</Text>
 				</View>
 				<View style={styles.categories}>
-					<View style={styles.category}>
+					<Link to="/category/pilates" style={styles.category}>
 						<Image source={pilates} style={styles.categoryImage} />
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/yoga" style={styles.category}>
 						<Image source={yoga} style={styles.categoryImage} />
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/barre" style={styles.category}>
 						<Image source={barre} style={styles.categoryImage} />
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/meditation" style={styles.category}>
 						<Image
 							source={meditation}
 							style={styles.categoryImage}
 						/>
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/modif" style={styles.category}>
 						<Image source={modified} style={styles.categoryImage} />
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/prenatal" style={styles.category}>
 						<Image source={prenatal} style={styles.categoryImage} />
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/postnatal" style={styles.category}>
 						<Image
 							source={postnatal}
 							style={styles.categoryImage}
 						/>
-					</View>
-					<View style={styles.category}>
+					</Link>
+					<Link to="/category/pelvic" style={styles.category}>
 						<Image source={pelvic} style={styles.categoryImage} />
-					</View>
+					</Link>
 				</View>
 			</ScrollView>
 			<Footer />

@@ -15,6 +15,7 @@ import SectionHead from "../SectionHead";
 import pelvic from "../../assets/pelvic2.png";
 import hip from "../../assets/hip.png";
 import morning from "../../assets/morning.png";
+import { Link, Redirect } from "react-router-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -27,19 +28,24 @@ const Classes = () => {
 			>
 				<View style={styles.header}>
 					<Text style={styles.headerText}>Classes</Text>
-					<View style={styles.textInput}>
+					{/* <View style={styles.textInput}>
 						<TextInput style={styles.headerInput}>Filter</TextInput>
 						<Icon
 							name="arrow-alt-circle-down"
 							style={styles.arrowIcon}
 							size={20}
 						/>
-					</View>
+					</View> */}
 				</View>
 				<View style={styles.featured}>
 					<SectionHead text="Featured Class" />
-					<Image source={pelvic} style={styles.featImage} />
-					<Text>Pelvic Floor and Arms</Text>
+
+					<Link to="/category/pelvic">
+						<View style={{ alignItems: "center" }}>
+							<Image source={pelvic} style={styles.featImage} />
+							<Text>Pelvic Floor and Arms</Text>
+						</View>
+					</Link>
 				</View>
 				<View style={styles.trending}>
 					<SectionHead text="Trending Classes" />
@@ -72,13 +78,13 @@ export default Classes;
 const styles = StyleSheet.create({
 	header: {
 		marginTop: 50,
-		marginBottom: 15,
+		marginBottom: 5,
 	},
 	headerText: {
 		fontSize: 24,
 		color: "#EFA7A1",
 		textAlign: "center",
-		marginBottom: 20,
+		marginBottom: 5,
 	},
 	headerInput: {
 		borderRadius: 50,
