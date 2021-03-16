@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { NativeRouter, Route } from "react-router-native";
 import Challenges from "./components/Challenges/Challenges";
@@ -10,8 +10,26 @@ import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 import Video from "./Video/Video";
 import CategoryResult from "./components/CategoryResult";
+import * as Permissions from "expo-permissions";
 
 export default function App() {
+	useEffect(() => {
+		registerForPushNotifications();
+	}, []);
+
+	const registerForPushNotifications = async () => {
+		try {
+			const permission = await Permissions.askAsync(
+				Permissions.NOTIFICATIONS
+			);
+			if (!permission.granted) return;
+			const token = await Notifications.getExpoPushTokenAsync();
+			console.log(token);
+		} catch (error) {
+			console.log("Error getting a token", error);
+		}
+	};
+
 	return (
 		<NativeRouter>
 			<View style={{ flex: 1 }}>
