@@ -38,7 +38,7 @@ const CategoryResult = (props) => {
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={styles.backArea}>
-				<Link to="/">
+				<Link to="/home">
 					<View
 						style={{ flexDirection: "row", alignItems: "center" }}
 					>

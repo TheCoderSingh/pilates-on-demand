@@ -8,6 +8,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from "react-native";
+import axios from "axios";
 import Footer from "../Footer/Footer";
 import logo from "../../assets/logo.png";
 import group from "../../assets/group.jpg";
@@ -23,7 +24,31 @@ import { Link } from "react-router-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
-const Home = () => {
+const Home = (props) => {
+	const [user, setUser] = useState([]);
+
+	useEffect(() => {
+		if (props.match.params.loggedin) {
+			axios({
+				method: "post",
+				url: "https://pilatesondemand.ca/wp-json/pod_api/app/v1/user",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization:
+						"8P~8HtbJ[azS5tUQc.j@^)c|f>]XzUf6=3?JYYq!5`)Hc33_",
+				},
+				data: {
+					user_id: props.match.params.id,
+				},
+			})
+				.then((response) => {
+					setUser(response.data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}, []);
 	return (
 		// <ScrollView>
 		// 	{videos.map((video) => {
@@ -54,21 +79,38 @@ const Home = () => {
 		<View style={{ flex: 1 }}>
 			<ScrollView style={styles.contentCont}>
 				<Image source={logo} style={styles.logo} />
+				<View
+					style={{
+						flexDirection: "row",
+						alignItems: "center",
+						marginLeft: 20,
+						marginBottom: 20,
+					}}
+				>
+					<Text style={{ fontSize: 22 }}>Welcome </Text>
+					<Text style={{ fontSize: 22, color: "#EFA7A1" }}>
+						{user.username},
+					</Text>
+				</View>
+
 				<Image source={group} style={styles.image} />
 				<View style={styles.text}>
 					<Text>MOVEMENT THAT WORKS BEST FOR YOU</Text>
 					<Text>Online classes for Every BODY</Text>
 				</View>
-				<View style={styles.buttons}>
-					<Link to="/register" style={styles.button}>
-						<Text style={styles.buttonText}>
-							Try 14 days for free
-						</Text>
-					</Link>
-					<Link to="/sign-in" style={styles.button}>
-						<Text style={styles.buttonText}>Sign In</Text>
-					</Link>
-				</View>
+
+				{props.match.params.loggedin ? null : (
+					<View style={styles.buttons}>
+						<Link to="/register" style={styles.button}>
+							<Text style={styles.buttonText}>
+								Try 14 days for free
+							</Text>
+						</Link>
+						<Link to="/sign-in" style={styles.button}>
+							<Text style={styles.buttonText}>Sign In</Text>
+						</Link>
+					</View>
+				)}
 				<View style={styles.text}>
 					<Text>CLASSES THAT FIT YOU</Text>
 					<Text>ANYWHERE. ANYTIME. ANY SKILL LEVEL.</Text>

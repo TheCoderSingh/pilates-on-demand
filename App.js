@@ -33,7 +33,8 @@ export default function App() {
 	return (
 		<NativeRouter>
 			<View style={{ flex: 1 }}>
-				<Route exact path="/" component={Home} />
+				<Route exact path="/" component={Settings} />
+				<Route path="/home/:loggedin/:id" component={Home} />
 				<Route path="/classes" component={Classes} />
 				<Route path="/search" component={Search} />
 				<Route path="/video/:id" component={Video} />
