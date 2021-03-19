@@ -31,6 +31,12 @@ const Home = (props) => {
 	const [loggedin, setLoggedin] = useState(false);
 
 	useEffect(() => {
+		getLoggedIn().then((res) => {
+			if (res) {
+				setLoggedin(true);
+			}
+		});
+
 		if (props.match.params.loggedin) {
 			axios({
 				method: "post",
@@ -55,6 +61,18 @@ const Home = (props) => {
 				});
 		}
 	}, []);
+
+	const getLoggedIn = async () => {
+		try {
+			const loggedin = await AsyncStorage.getItem("@loggedin");
+
+			if (loggedin === "yes") return true;
+			else return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	};
 
 	const storeLoggedIn = async () => {
 		try {

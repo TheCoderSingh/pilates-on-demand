@@ -21,6 +21,8 @@ const Settings = () => {
 		getLoggedIn().then((res) => {
 			if (res) {
 				setLoggedin(true);
+			} else {
+				setLoggedin(false);
 			}
 		});
 	}, []);
@@ -49,7 +51,7 @@ const Settings = () => {
 						borderRadius: 100,
 					}}
 				></View>
-				{loggedin ? (
+				{loggedin ? null : (
 					<View style={styles.buttons}>
 						<Link to="/sign-in" style={styles.button}>
 							<Text style={styles.buttonText}>Sign In</Text>
@@ -58,7 +60,7 @@ const Settings = () => {
 							<Text style={styles.buttonText}>Register</Text>
 						</Link>
 					</View>
-				) : null}
+				)}
 				<View style={styles.content}>
 					<View style={styles.setting}>
 						<Text style={styles.settingText}>
