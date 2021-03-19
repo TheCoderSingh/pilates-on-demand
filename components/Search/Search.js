@@ -15,6 +15,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Footer from "../Footer/Footer";
 import SectionHead from "../SectionHead";
 import { Link } from "react-router-native";
+import MIcon from "react-native-vector-icons/MaterialIcons";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -67,6 +68,28 @@ const Search = () => {
 					{/* <SectionHead text="Search Results" /> */}
 					<View style={styles.videos}>
 						<ScrollView>
+							{videos.length === 0 && clicked ? (
+								<View>
+									<MIcon
+										name="error"
+										style={{
+											fontSize: 120,
+											color: "#EFA7A1",
+											textAlign: "center",
+											marginTop: "50%",
+										}}
+									/>
+									<Text
+										style={{
+											fontSize: 24,
+											marginTop: 15,
+											textAlign: "center",
+										}}
+									>
+										No videos found
+									</Text>
+								</View>
+							) : null}
 							{isLoading && clicked ? (
 								<View>
 									<ActivityIndicator

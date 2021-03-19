@@ -38,11 +38,15 @@ const CategoryResult = (props) => {
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={styles.backArea}>
-				<Link to="/home">
+				<Link to="/">
 					<View
 						style={{ flexDirection: "row", alignItems: "center" }}
 					>
-						<Icon name="chevron-back-outline" size={30} />
+						<Icon
+							name="chevron-back-outline"
+							size={30}
+							style={{ color: "#EFA7A1" }}
+						/>
 						<Text style={styles.backTxt}>Home</Text>
 					</View>
 				</Link>
@@ -54,17 +58,40 @@ const CategoryResult = (props) => {
 				<View style={styles.videos}>
 					{isLoading ? (
 						<View>
-							<ActivityIndicator size="large" color="#00ff00" />
+							<ActivityIndicator size="large" color="#EFA7A1" />
 							<Text style={{ marginTop: 20 }}>
 								Loading Videos...
 							</Text>
 						</View>
 					) : (
 						videos.map((video) => {
+							// return (
+							// 	<Link
+							// 		to={"video/" + video.uri.substring(8)}
+							// 		key={video.uri.substring(8)}
+							// 	>
+							// 		<View
+							// 			key={video.uri.substring(8)}
+							// 			style={styles.video}
+							// 		>
+							// 			<Image
+							// 				source={{
+							// 					uri: video.pictures.sizes[4].link.slice(
+							// 						0,
+							// 						-6
+							// 					),
+							// 				}}
+							// 				style={styles.thumbnail}
+							// 			/>
+							// 			<Text>{video.name}</Text>
+							// 		</View>
+							// 	</Link>
+							// );
 							return (
 								<Link
-									to={"video/" + video.uri.substring(8)}
+									to={"/video/" + video.uri.substring(8)}
 									key={video.uri.substring(8)}
+									underlayColor="none"
 								>
 									<View
 										key={video.uri.substring(8)}
@@ -79,7 +106,21 @@ const CategoryResult = (props) => {
 											}}
 											style={styles.thumbnail}
 										/>
-										<Text>{video.name}</Text>
+
+										<Text
+											style={{
+												fontSize: 18,
+											}}
+										>
+											{video.name}
+										</Text>
+										<Text
+											style={{
+												marginTop: 10,
+											}}
+										>
+											{video.description}
+										</Text>
 									</View>
 								</Link>
 							);
@@ -96,35 +137,41 @@ export default CategoryResult;
 
 const styles = StyleSheet.create({
 	backArea: {
-		backgroundColor: "#efefef",
+		backgroundColor: "#EEE",
 		paddingTop: 50,
 		justifyContent: "center",
 		paddingBottom: 5,
 	},
 	backTxt: {
 		fontSize: 18,
+		color: "#EFA7A1",
 	},
 	categoryName: {
 		fontSize: 24,
 		textTransform: "capitalize",
 		marginTop: 10,
+		color: "#EFA7A1",
 	},
 	videos: {
 		marginTop: 30,
+		width: deviceWidth - 50,
 	},
 	video: {
-		maxHeight: 300,
-		width: deviceWidth - 100,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 6,
-		marginBottom: 60,
+		// maxHeight: 300,
+		// width: deviceWidth - 100,
+		// alignItems: "center",
+		// justifyContent: "center",
+		// borderRadius: 6,
+		marginBottom: 30,
+		borderWidth: 2,
+		borderColor: "#EFA7A1",
+		padding: 5,
 	},
 	videoText: {
 		color: "#fff",
 	},
 	thumbnail: {
-		height: "100%",
+		height: 150,
 		width: "100%",
 		marginBottom: 10,
 	},
