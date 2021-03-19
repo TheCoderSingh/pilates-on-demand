@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Dimensions,
 	Image,
@@ -15,6 +15,28 @@ import { Link } from "react-router-native";
 const deviceWidth = Dimensions.get("window").width;
 
 const Settings = () => {
+	const [loggedin, setLoggedin] = useState(false);
+
+	useEffect(() => {
+		getLoggedIn().then((res) => {
+			if (res) {
+				setLoggedin(true);
+			}
+		});
+	}, []);
+
+	const getLoggedIn = async () => {
+		try {
+			const loggedin = await AsyncStorage.getItem("@loggedin");
+
+			if (loggedin === "yes") return true;
+			else return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={{ alignItems: "center" }}>
@@ -27,14 +49,16 @@ const Settings = () => {
 						borderRadius: 100,
 					}}
 				></View>
-				<View style={styles.buttons}>
-					<Link to="/sign-in" style={styles.button}>
-						<Text style={styles.buttonText}>Sign In</Text>
-					</Link>
-					<Link to="/register" style={styles.button}>
-						<Text style={styles.buttonText}>Register</Text>
-					</Link>
-				</View>
+				{loggedin ? (
+					<View style={styles.buttons}>
+						<Link to="/sign-in" style={styles.button}>
+							<Text style={styles.buttonText}>Sign In</Text>
+						</Link>
+						<Link to="/register" style={styles.button}>
+							<Text style={styles.buttonText}>Register</Text>
+						</Link>
+					</View>
+				) : null}
 				<View style={styles.content}>
 					<View style={styles.setting}>
 						<Text style={styles.settingText}>
