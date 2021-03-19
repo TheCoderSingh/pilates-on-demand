@@ -20,25 +20,29 @@ const deviceWidth = Dimensions.get("window").width;
 const SignIn = () => {
 	const [username, setUsername] = useState();
 	const [password, setPassword] = useState();
-	const [loggedIn, setLoggedIn] = useState();
+	const [loggedIn, setLoggedIn] = useState(false);
 	const [userId, setUserId] = useState();
 
 	useEffect(() => {
 		let isCancelled = false;
 
-		if (getLoggedIn) {
-			let uid = getUserId();
+		let x = getLoggedIn();
 
-			uid.then((response) => {
-				console.log(response);
-				if (!isCancelled) setUserId(response);
-			}).catch((error) => {
-				console.log(error);
-			});
-			setLoggedIn(true);
-		} else {
-			setLoggedIn(false);
-		}
+		x.then((res) => {
+			if (res) {
+				let uid = getUserId();
+
+				uid.then((response) => {
+					if (!isCancelled) setUserId(response);
+				}).catch((error) => {
+					console.log(error);
+				});
+				setLoggedIn(true);
+			} else {
+				setLoggedIn(false);
+			}
+		});
+
 		return () => {
 			isCancelled = true;
 		};
@@ -79,7 +83,6 @@ const SignIn = () => {
 	};
 
 	const storeUserId = async (uid) => {
-		console.log(uid);
 		try {
 			await AsyncStorage.setItem("@userid", uid.toString());
 		} catch (error) {
@@ -95,6 +98,7 @@ const SignIn = () => {
 			else return false;
 		} catch (error) {
 			console.log(error);
+			return false;
 		}
 	};
 
@@ -123,6 +127,7 @@ const SignIn = () => {
 					placeholder="Password"
 					style={styles.input}
 					onChangeText={setPassword}
+					secureTextEntry={true}
 				/>
 				<TouchableOpacity style={styles.btn} onPress={login}>
 					<Text style={styles.btnTxt}>Sign In</Text>

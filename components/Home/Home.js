@@ -7,6 +7,8 @@ import {
 	ScrollView,
 	Image,
 	TouchableOpacity,
+	Button,
+	AsyncStorage,
 } from "react-native";
 import axios from "axios";
 import Footer from "../Footer/Footer";
@@ -26,6 +28,7 @@ const deviceWidth = Dimensions.get("window").width;
 
 const Home = (props) => {
 	const [user, setUser] = useState([]);
+	const [loggedin, setLoggedin] = useState(false);
 
 	useEffect(() => {
 		if (props.match.params.loggedin) {
@@ -42,14 +45,26 @@ const Home = (props) => {
 				},
 			})
 				.then((response) => {
-					console.log("Res", response.data);
 					setUser(response.data);
+				})
+				.then(() => {
+					setLoggedin(true);
 				})
 				.catch((error) => {
 					console.log(error);
 				});
 		}
 	}, []);
+
+	const storeLoggedIn = async () => {
+		try {
+			await AsyncStorage.setItem("@loggedin", "no");
+			setLoggedin(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		// <ScrollView>
 		// 	{videos.map((video) => {
@@ -79,6 +94,25 @@ const Home = (props) => {
 		// </ScrollView>
 		<View style={{ flex: 1 }}>
 			<ScrollView style={styles.contentCont}>
+				{loggedin ? (
+					<TouchableOpacity
+						onPress={() => {
+							try {
+								storeLoggedIn();
+								return true;
+							} catch (error) {
+								return false;
+							}
+						}}
+						style={{
+							alignSelf: "flex-end",
+							marginRight: 10,
+							fontSize: 16,
+						}}
+					>
+						<Text>Logout</Text>
+					</TouchableOpacity>
+				) : null}
 				<Image source={logo} style={styles.logo} />
 				<View
 					style={{
@@ -88,10 +122,14 @@ const Home = (props) => {
 						marginBottom: 20,
 					}}
 				>
-					{/* <Text style={{ fontSize: 22 }}>Welcome </Text>
-					<Text style={{ fontSize: 22, color: "#EFA7A1" }}>
-						{user.username},
-					</Text> */}
+					{loggedin ? (
+						<View>
+							<Text style={{ fontSize: 22 }}>Welcome </Text>
+							<Text style={{ fontSize: 22, color: "#EFA7A1" }}>
+								{user.username}
+							</Text>
+						</View>
+					) : null}
 				</View>
 
 				<Image source={group} style={styles.image} />
@@ -100,7 +138,7 @@ const Home = (props) => {
 					<Text>Online classes for Every BODY</Text>
 				</View>
 
-				{props.match.params.loggedin ? null : (
+				{loggedin ? null : (
 					<View style={styles.buttons}>
 						<Link to="/register" style={styles.button}>
 							<Text style={styles.buttonText}>
