@@ -11,6 +11,7 @@ import Register from "./components/Register/Register";
 import Video from "./Video/Video";
 import CategoryResult from "./components/CategoryResult";
 import * as Permissions from "expo-permissions";
+import Class from "./components/Classes/Class";
 
 export default function App() {
 	useEffect(() => {
@@ -33,7 +34,8 @@ export default function App() {
 	return (
 		<NativeRouter>
 			<View style={{ flex: 1 }}>
-				<Route exact path="/" component={Settings} />
+				{/* <Route exact path="/" component={Settings} /> */}
+				<Route exact path="/" component={Home} />
 				<Route path="/home/:loggedin/:id" component={Home} />
 				<Route path="/classes" component={Classes} />
 				<Route path="/search" component={Search} />
@@ -43,6 +45,7 @@ export default function App() {
 				<Route path="/sign-in" component={SignIn} />
 				<Route path="/register" component={Register} />
 				<Route path="/category/:cat" component={CategoryResult} />
+				<Route path="/class/:id" component={Class} />
 			</View>
 		</NativeRouter>
 	);

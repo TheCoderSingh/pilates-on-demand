@@ -21,7 +21,7 @@ const Challenges = () => {
 		<View style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={{ alignItems: "center" }}>
 				<Text style={styles.headText}>Challenges</Text>
-				<Text style={styles.featuredText}>Featured Challenge</Text>
+				{/* <Text style={styles.featuredText}>Featured Challenge</Text>
 				<Image source={featured} style={styles.featuredImage} />
 				<Text style={styles.popularText}>Popular Challenges</Text>
 				<View style={styles.challenges}>
@@ -58,7 +58,7 @@ const Challenges = () => {
 							</TouchableOpacity>
 						</View>
 					</View>
-				</View>
+				</View> */}
 			</ScrollView>
 			<Footer />
 		</View>

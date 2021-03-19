@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Dimensions,
 	StyleSheet,
@@ -8,6 +8,8 @@ import {
 	View,
 	Image,
 	TouchableOpacity,
+	TouchableHighlight,
+	ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Footer from "../Footer/Footer";
@@ -16,10 +18,35 @@ import pelvic from "../../assets/pelvic2.png";
 import hip from "../../assets/hip.png";
 import morning from "../../assets/morning.png";
 import { Link, Redirect } from "react-router-native";
+import axios from "axios";
 
 const deviceWidth = Dimensions.get("window").width;
 
 const Classes = () => {
+	const [classes, setClasses] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		axios({
+			method: "post",
+			url: "https://pilatesondemand.ca/wp-json/pod_api/app/v1/classes",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization:
+					"8P~8HtbJ[azS5tUQc.j@^)c|f>]XzUf6=3?JYYq!5`)Hc33_",
+			},
+		})
+			.then((response) => {
+				setClasses(response.data);
+			})
+			.then(() => {
+				setIsLoading(false);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ScrollView
@@ -38,16 +65,59 @@ const Classes = () => {
 					</View> */}
 				</View>
 				<View style={styles.featured}>
-					<SectionHead text="Featured Class" />
+					{/* <SectionHead text="Get Started" /> */}
 
-					<Link to="/category/pelvic">
+					{isLoading ? (
+						<View>
+							<ActivityIndicator size="large" color="#EFA7A1" />
+							<Text style={{ marginTop: 20 }}>
+								Loading Classes...
+							</Text>
+						</View>
+					) : (
+						classes.map((cls) => {
+							return (
+								<Link
+									to={"/class/" + cls.class_id}
+									underlayColor="#efefef"
+									style={{
+										marginBottom: 30,
+										width: 350,
+										padding: 10,
+										borderBottomWidth: 1,
+									}}
+								>
+									<View>
+										<Text style={{ fontSize: 18 }}>
+											{cls.title}
+										</Text>
+										<View
+											style={{
+												flexDirection: "row",
+												justifyContent: "space-between",
+											}}
+										>
+											<Text>By: {cls.instructor}</Text>
+											<Text>
+												Duration: {cls.duration}
+											</Text>
+										</View>
+										<Text>{cls.content}</Text>
+										<Text>{cls.excerpt}</Text>
+									</View>
+								</Link>
+							);
+						})
+					)}
+
+					{/* <Link to="/category/pelvic">
 						<View style={{ alignItems: "center" }}>
 							<Image source={pelvic} style={styles.featImage} />
 							<Text>Pelvic Floor and Arms</Text>
 						</View>
-					</Link>
+					</Link> */}
 				</View>
-				<View style={styles.trending}>
+				{/* <View style={styles.trending}>
 					<SectionHead text="Trending Classes" />
 					<TouchableOpacity style={styles.seeMore}>
 						<Text>See More &gt;&gt;</Text>
@@ -66,7 +136,7 @@ const Classes = () => {
 					<TouchableOpacity style={styles.button}>
 						<Text style={styles.classesText}>Advanced</Text>
 					</TouchableOpacity>
-				</View>
+				</View> */}
 			</ScrollView>
 			<Footer />
 		</View>
@@ -106,6 +176,7 @@ const styles = StyleSheet.create({
 	},
 	featured: {
 		alignItems: "center",
+		marginTop: 20,
 	},
 	featImage: {
 		marginTop: 20,

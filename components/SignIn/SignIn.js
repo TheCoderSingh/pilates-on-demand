@@ -24,14 +24,24 @@ const SignIn = () => {
 	const [userId, setUserId] = useState();
 
 	useEffect(() => {
+		let isCancelled = false;
+
 		if (getLoggedIn) {
 			let uid = getUserId();
 
-			setUserId(uid.parseInt());
+			uid.then((response) => {
+				console.log(response);
+				if (!isCancelled) setUserId(response);
+			}).catch((error) => {
+				console.log(error);
+			});
 			setLoggedIn(true);
 		} else {
 			setLoggedIn(false);
 		}
+		return () => {
+			isCancelled = true;
+		};
 	}, []);
 
 	const login = () => {

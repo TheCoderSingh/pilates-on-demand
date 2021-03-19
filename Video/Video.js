@@ -22,13 +22,25 @@ const Video = (props) => {
 			});
 	}, []);
 
+	const formatTime = (time) => {
+		var hrs = ~~(time / 3600);
+		var mins = ~~((time % 3600) / 60);
+		var secs = ~~time % 60;
+
+		var ret = "";
+		if (hrs > 0) {
+			ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+		}
+		ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+		ret += "" + secs;
+		return ret;
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={{ alignItems: "center" }}>
 				{video ? (
 					<View style={styles.video}>
-						<Text style={styles.name}>{video.name}</Text>
-						<Text style={styles.desc}>{video.description}</Text>
 						<WebView
 							source={{
 								html: video.embed.html
@@ -38,6 +50,21 @@ const Video = (props) => {
 							scrollEnabled={false}
 							style={{ marginTop: 20, width: 320, height: 230 }}
 						/>
+						<Text style={styles.name}>{video.name}</Text>
+						<Text style={styles.desc}>{video.description}</Text>
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "space-around",
+								marginTop: 10,
+								width: "100%",
+							}}
+						>
+							<Text>Duration: {formatTime(video.duration)}</Text>
+							<Text>
+								Date: {video.created_time.substring(0, 10)}
+							</Text>
+						</View>
 					</View>
 				) : null}
 			</ScrollView>
@@ -51,7 +78,6 @@ export default Video;
 const styles = StyleSheet.create({
 	video: {
 		marginTop: 60,
-		height: 600,
 		width: deviceWidth,
 		alignItems: "center",
 	},
@@ -63,7 +89,7 @@ const styles = StyleSheet.create({
 		color: "#EFA7A1",
 	},
 	desc: {
-		textAlign: "center",
 		marginTop: 10,
+		width: deviceWidth - 30,
 	},
 });

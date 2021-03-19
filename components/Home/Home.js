@@ -42,6 +42,7 @@ const Home = (props) => {
 				},
 			})
 				.then((response) => {
+					console.log("Res", response.data);
 					setUser(response.data);
 				})
 				.catch((error) => {
@@ -87,10 +88,10 @@ const Home = (props) => {
 						marginBottom: 20,
 					}}
 				>
-					<Text style={{ fontSize: 22 }}>Welcome </Text>
+					{/* <Text style={{ fontSize: 22 }}>Welcome </Text>
 					<Text style={{ fontSize: 22, color: "#EFA7A1" }}>
 						{user.username},
-					</Text>
+					</Text> */}
 				</View>
 
 				<Image source={group} style={styles.image} />

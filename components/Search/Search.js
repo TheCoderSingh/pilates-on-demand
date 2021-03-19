@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+	ActivityIndicator,
 	Dimensions,
 	Image,
 	ScrollView,
@@ -20,12 +21,20 @@ const deviceWidth = Dimensions.get("window").width;
 const Search = () => {
 	const [searchQuery, setSearchQuery] = useState();
 	const [videos, setVideos] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [clicked, setClicked] = useState(false);
 
 	let fetchVideos = () => {
+		setClicked(true);
+
 		axios
 			.get(`http://10.0.0.225:3000/search-videos/${searchQuery}`)
 			.then((response) => {
 				setVideos(response.data);
+				console.log(response.data);
+			})
+			.then(() => {
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -55,45 +64,68 @@ const Search = () => {
 					</View>
 				</View>
 				<View style={styles.results}>
-					<SectionHead text="Search Results" />
+					{/* <SectionHead text="Search Results" /> */}
 					<View style={styles.videos}>
 						<ScrollView>
-							{videos.map((video) => {
-								return (
-									<Link
-										to={"video/" + video.uri.substring(8)}
-										key={video.uri.substring(8)}
+							{isLoading && clicked ? (
+								<View>
+									<ActivityIndicator
+										size="large"
+										color="#EFA7A1"
+									/>
+									<Text
+										style={{
+											marginTop: 20,
+											alignSelf: "center",
+										}}
 									>
-										<View
+										Searching...
+									</Text>
+								</View>
+							) : (
+								videos.map((video) => {
+									return (
+										<Link
+											to={
+												"video/" +
+												video.uri.substring(8)
+											}
 											key={video.uri.substring(8)}
-											style={styles.video}
+											underlayColor="none"
 										>
-											{/* <WebView
-											source={{
-												html: video.embed.html,
-												headers: {
-													Referer:
-														"exp://10.0.0.225:19000",
-												},
-											}}
-										/> */}
+											<View
+												key={video.uri.substring(8)}
+												style={styles.video}
+											>
+												<Image
+													source={{
+														uri: video.pictures.sizes[4].link.slice(
+															0,
+															-6
+														),
+													}}
+													style={styles.thumbnail}
+												/>
 
-											{/* <View> */}
-											<Image
-												source={{
-													uri: video.pictures.sizes[4].link.slice(
-														0,
-														-6
-													),
-												}}
-												style={styles.thumbnail}
-											/>
-											<Text>{video.name}</Text>
-											{/* </View> */}
-										</View>
-									</Link>
-								);
-							})}
+												<Text
+													style={{
+														fontSize: 18,
+													}}
+												>
+													{video.name}
+												</Text>
+												<Text
+													style={{
+														marginTop: 10,
+													}}
+												>
+													{video.description}
+												</Text>
+											</View>
+										</Link>
+									);
+								})
+							)}
 						</ScrollView>
 					</View>
 				</View>
@@ -144,20 +176,19 @@ const styles = StyleSheet.create({
 	},
 	videos: {
 		marginTop: 30,
+		width: deviceWidth - 50,
 	},
 	video: {
-		maxHeight: 300,
-		width: deviceWidth - 100,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 6,
-		marginBottom: 60,
+		marginBottom: 30,
+		borderWidth: 2,
+		borderColor: "#EFA7A1",
+		padding: 5,
 	},
 	videoText: {
 		color: "#fff",
 	},
 	thumbnail: {
-		height: "100%",
+		height: 150,
 		width: "100%",
 		marginBottom: 10,
 	},
