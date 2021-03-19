@@ -78,7 +78,7 @@ const Class = (props) => {
 				>
 					{cls.map((element) => {
 						return (
-							<View style={{ width: 380 }}>
+							<View style={{ width: 380 }} key={element.title}>
 								<Text style={{ fontSize: 20 }}>
 									{element.title}
 								</Text>
@@ -92,7 +92,7 @@ const Class = (props) => {
 								<Text>Levels:</Text>
 								{element.difficulty.map((diff) => {
 									return (
-										<Text>
+										<Text key={diff}>
 											{diff.replace(/^\w/, (c) =>
 												c.toUpperCase()
 											)}
@@ -102,11 +102,11 @@ const Class = (props) => {
 								<Text>{element.series}</Text>
 								<Text>Equipment Required:</Text>
 								{element.equipment.map((equip) => {
-									return <Text>{equip}</Text>;
+									return <Text key={equip}>{equip}</Text>;
 								})}
 								<Text style={{ marginTop: 10 }}>Focus:</Text>
 								{element.focus.map((foc) => {
-									return <Text>{foc}</Text>;
+									return <Text key={foc}>{foc}</Text>;
 								})}
 							</View>
 						);
